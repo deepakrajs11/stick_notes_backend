@@ -11,3 +11,4 @@ import router from '@adonisjs/core/services/router'
 router.post('/', [NotesController, 'store'])
 router.get('/', [NotesController, 'show'])
 router.delete('/', [NotesController, 'remove'])
+router.get('/:id', [NotesController, 'getdata'])

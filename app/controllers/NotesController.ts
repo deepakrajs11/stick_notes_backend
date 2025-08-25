@@ -8,7 +8,7 @@ export default class NotesController {
   }
 
   async show({ response }: HttpContext) {
-    const data = await Note.query().select(['title', 'body'])
+    const data = await Note.query().select(['title', 'body', 'id'])
     return response.json({ posts: data })
   }
   public async remove({ request, response }: HttpContext) {
@@ -20,5 +20,15 @@ export default class NotesController {
 
     await note.delete()
     return response.json({ message: 'Note deleted successfully' })
+  }
+
+  public async getdata({ params, response }: HttpContext) {
+    const id = params.id
+    const data = await Note.query().where('id', id).first()
+    if (data) {
+      return response.json({ post: data })
+    } else {
+      return response.status(404).json({ error: 'Note not found' })
+    }
   }
 }
